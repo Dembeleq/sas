@@ -1,0 +1,133 @@
+config-version: 4
+# ======================= GENEL / MESAJLAR =======================
+server-name: "ChicagoRP"           # {server} yerine yazilir (prefix, baslik, mesajlar)
+prefix: "&8[&6&l{server}&8] &7» &f"
+join-message: "&8[&a+&8] &f{player} &7şehre geldi &8(&e{online}&8)"
+quit-message: "&8[&c-&8] &f{player} &7şehirden ayrıldı"
+welcome-title: "&6&l{server}"
+welcome-subtitle: "&7Hoş geldin, &f{player}"
+# ======================= MODELLER / KAYNAK PAKETI =======================
+models:
+  enabled: true
+  vehicle-yaw-offset: 0            # araba ters gorunuyorsa 180 (veya /sehir araccevir)
+  sign-yaw-offset: 0               # tabela/ATM ters gorunuyorsa 180 (veya /sehir tabelacevir)
+  arrow-yaw-offset: 0              # yol tarifi oku ters gorunuyorsa 180
+resource-pack:
+  url: ""
+  sha1: "6b13750b0ff1804029430a8bf4e541aa191cdc74"
+  required: true
+# ======================= ARACLAR =======================
+vehicle:
+  horse-scale: 0.6                 # surucu oturus yuksekligi (kucuk = alcak)
+  seat-y: -0.15                    # yolcu koltugu yukseklik ayari
+  seat-yaw: 0
+gallery:
+  pay-from-bank: true              # nakit yetmezse banka bakiyesinden de duser
+guns-enabled: true                 # false: sadece sopa (sezon basi)
+# ======================= MESLEK KONTENJANLARI (-1 = sinirsiz) =======================
+job-capacity:
+  polis: 8
+  ciftci: 20
+  kimyager: 8
+  torbaci: 12
+  demirci: 6
+  kargocu: 10
+  silah_ustasi: 3
+  balikci: -1
+  mekanik: 6
+  taksici: 8
+  durumcu: 6
+  kacakci: 5
+  soyguncu: 8
+# ======================= EKONOMI =======================
+# Hedef (aktif calisan oyuncu): yasal meslekler ~18.000 TL/saat, yasa disi ~24.000 TL/saat.
+start-money: 5000
+generator: {base-income-per-minute: 100, price: 5000}    # 1. jenerator ~6.000 TL/saat (cevrimici)
+arrest-reward: 2500                # saatte ~8 tutuklama ~ 20.000
+arrest-seconds: 180
+ehliyet-price: 3000
+pvp-cooldown-minutes: 10
+fishing: {min: 80, max: 170}      # ~120 balik/saat ~ 15-18.000
+chain:                             # ciftci -> kimyager -> torbaci (yasa disi ~24.000/saat)
+  field-rent-price: 2000
+  grow-seconds: 600
+  raw-per-harvest: 20
+  raw-sell-price: 200              # ciftci: 20 x 200 / 10 dk = 24.000/saat
+  raw-buy-price: 200
+  refine-seconds: 60
+  product-sell-price: 280          # kimyager kari: 10 x 80 / ~2 dk
+  dealer-buy-price: 280
+  delivery-pay: 1100               # torbaci kari: 820 x ~30 teslimat/saat
+orders:                            # demirci / kargocu (yasal ~18.000/saat)
+  cargo-pay: 900
+  smith-pay: 1200
+  prep-seconds: 120
+# Asil is mekanigi henuz olmayan meslekler icin saatlik maas (payday-minutes dakikada bir odenir, AFK ise odenmez)
+job-salary:
+  mekanik: 18000
+  taksici: 18000
+  durumcu: 18000
+  kacakci: 24000
+  soyguncu: 24000
+payday-minutes: 10
+daily-reward: 1500
+bank:
+  transfer-fee: 0.01               # havale komisyonu (%1)
+police:
+  cuff-seconds: 120
+  salary-note: "polis geliri: tutuklama odulu"
+gang:
+  default-symbol: "✦"
+  tag-format: "&8[&c{symbol} &f{gang}&8] "
+# ======================= ZIRHLAR (demirci -> kargocu -> uretim) =======================
+armors:
+  hafif: {name: "&bKevlar Yelek", price: 20000, color: [70, 90, 120], armor: 8.0, toughness: 0.0, produce: 120}
+  orta: {name: "&9Taktik Zırh", price: 55000, color: [45, 70, 45], armor: 14.0, toughness: 2.0, produce: 180}
+  agir: {name: "&cAğır Zırh", price: 130000, color: [60, 60, 66], armor: 19.0, toughness: 4.5, produce: 240}
+  polis: {name: "&9Polis Zırhı", price: 0, color: [20, 40, 120], armor: 15.0, toughness: 3.0, produce: 0, police-only: true}
+# ======================= SILAHLAR =======================
+# type: melee/gun   damage: vurus hasari (can)   cooldown: tick   mag: sarjor   reload: tick   range: blok
+# shop: true = silahcidan satilir (level sartli) | production-*: sadece Silah Ustasi uretir (polise bildirim gider)
+headshot-multiplier: 1.5
+weapons:
+  bat:     {name: "&6Beyzbol Sopası", type: melee, damage: 6.0, material: STICK, model: wpn_bat, price: 2500, level: 1, shop: true}
+  glock:   {name: "&8Glock 17", type: gun, damage: 5.0, cooldown: 5, mag: 17, reload: 45, range: 45, spread: 0.025, pellets: 1, ammo: pistol, material: BLAZE_ROD, model: wpn_glock, price: 18000, level: 3, shop: true}
+  deagle:  {name: "&7Desert Eagle", type: gun, damage: 7.0, cooldown: 14, mag: 7, reload: 55, range: 55, spread: 0.015, pellets: 1, ammo: pistol, material: BLAZE_ROD, model: wpn_deagle, price: 45000, level: 5, shop: true}
+  ak47:    {name: "&cAK-47", type: gun, damage: 6.0, cooldown: 3, mag: 30, reload: 70, range: 60, spread: 0.04, pellets: 1, ammo: rifle, material: BLAZE_ROD, model: wpn_ak47, shop: false, production-cost: 120000, production-seconds: 1800}
+  pompali: {name: "&6Pompalı", type: gun, damage: 2.5, cooldown: 22, mag: 6, reload: 80, range: 25, spread: 0.12, pellets: 8, ammo: shell, material: BLAZE_ROD, model: wpn_pompali, shop: false, production-cost: 90000, production-seconds: 1200}
+  keskin:  {name: "&bKeskin Nişancı", type: gun, damage: 14.0, cooldown: 35, mag: 5, reload: 90, range: 120, spread: 0.002, pellets: 1, ammo: sniper, material: BLAZE_ROD, model: wpn_keskin, shop: false, production-cost: 200000, production-seconds: 2400}
+ammo:
+  pistol: {name: "&eTabanca Mermisi", price: 80, model: ammo_pistol}
+  rifle: {name: "&aTüfek Mermisi", price: 120, model: ammo_rifle}
+  shell: {name: "&cŞarjör Fişeği", price: 150, model: ammo_shell}
+  sniper: {name: "&9Keskin Nişancı Mermisi", price: 300, model: ammo_sniper}
+# ======================= YERLER (sehir kurulunca otomatik doldurulur) =======================
+spawn: {world: world, x: 0, y: 64, z: 0, radius: 42}
+jail: {world: world, x: 0, y: 64, z: 0}
+phone-ia: ""
+vehicles:
+  clio: {name: "Renault Clio", level: 1, price: 40000, speed: 0.22, seats: 2, scale: 1.875, model: car_clio, material: RED_CONCRETE, ia: "", driver: [0.445, 0.038], seat-offsets: [[-0.891, 0.0]]}
+  corolla: {name: "Toyota Corolla", level: 2, price: 85000, speed: 0.26, seats: 2, scale: 1.875, model: car_corolla, material: WHITE_CONCRETE, ia: "", driver: [0.457, 0.131], seat-offsets: [[-0.914, 0.0]]}
+  impreza: {name: "Subaru Impreza 22B STI", level: 3, price: 220000, speed: 0.4, seats: 4, scale: 1.875, model: car_impreza, material: BLUE_CONCRETE, ia: "", driver: [0.492, 0.038], seat-offsets: [[-0.984, 0.0], [0.0, -0.956], [-0.984, -0.956]]}
+  egea: {name: "Fiat Egea", level: 4, price: 150000, speed: 0.3, seats: 4, scale: 1.875, model: car_egea, material: LIGHT_GRAY_CONCRETE, ia: "", driver: [0.457, 0.131], seat-offsets: [[-0.914, 0.0], [0.0, -0.862], [-0.914, -0.862]]}
+  jimny: {name: "Suzuki Jimny", level: 5, price: 260000, speed: 0.28, seats: 4, scale: 1.875, model: car_jimny, material: GREEN_CONCRETE, ia: "", driver: [0.434, 0.413], seat-offsets: [[-0.867, 0.0], [0.0, -1.613], [-0.867, -1.613]]}
+  mustang: {name: "Ford Mustang GT", level: 6, price: 600000, speed: 0.46, seats: 4, scale: 1.875, model: car_mustang, material: YELLOW_CONCRETE, ia: "", driver: [0.48, -0.431], seat-offsets: [[-0.961, 0.0], [0.0, -0.488], [-0.961, -0.488]]}
+  landcruiser: {name: "Toyota Land Cruiser 300", level: 7, price: 900000, speed: 0.4, seats: 5, scale: 1.875, model: car_landcruiser, material: BLACK_CONCRETE, ia: "", driver: [0.492, 0.225], seat-offsets: [[-0.984, 0.0], [0.0, -2.081], [-0.984, -2.081], [-0.492, -2.081]]}
+  supra: {name: "Toyota GR Supra A90", level: 8, price: 1500000, speed: 0.55, seats: 2, scale: 1.875, model: car_supra, material: ORANGE_CONCRETE, ia: "", driver: [0.492, -0.244], seat-offsets: [[-0.984, 0.0]]}
+# ItemsAdder kullanmak icin ia alanina "namespace:item" yaz.
+signs-def:
+  karakol: {units: 23.5, width: 6.5}
+  durumcu: {units: 20.5, width: 10}
+  market: {units: 17.5, width: 9}
+  giyim: {units: 14.5, width: 8}
+  kahve: {units: 26.5, width: 11}
+  silah: {units: 20.5, width: 10}
+  demirci: {units: 20.5, width: 10}
+  kargo: {units: 14.5, width: 8}
+  mekanik: {units: 20.5, width: 10}
+  galeri: {units: 17.5, width: 14}
+  jenerator: {units: 26.5, width: 12}
+  pavyon: {units: 17.5, width: 10}
+  belediye: {units: 23.5, width: 11}
+  hastane: {units: 20.5, width: 14}
+  banka: {units: 14.5, width: 8}
